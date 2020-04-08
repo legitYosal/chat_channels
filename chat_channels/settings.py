@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.User'
-LOGIN_REDIRECT_URL = '/chat'
-LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/chat/'
+LOGIN_URL = '/accounts/login/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'accounts.middleware.UserAthenticateRedirect'
 ]
 
 ROOT_URLCONF = 'chat_channels.urls'

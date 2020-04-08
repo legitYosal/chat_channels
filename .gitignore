@@ -4,3 +4,4 @@ jump*.sh
 *.db
 ./*/__*
 __*
+./*/migrations/

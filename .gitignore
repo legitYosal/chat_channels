@@ -5,3 +5,5 @@ jump*.sh
 ./*/__*
 __*
 ./*/migrations/
+./*/migratio*
+./*/migrations/*

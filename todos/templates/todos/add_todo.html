@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content %}
+
+    {% if form.errors %}
+    <p>some thing went wrong try again.</p>
+    {% endif %}
+
+
+      <form method="post" action="{% url 'add_todo' %}">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <td>{{ form.todo.label_tag }}</td>
+            <td>{{ form.todo }}</td>
+          </tr>
+        </table>
+        <input type="submit" value="add" />
+      </form>
+
+      {% endblock %}
+  </body>
+</html>

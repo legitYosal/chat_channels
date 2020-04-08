@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/chat/'
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 # Application definition
 
 INSTALLED_APPS = [

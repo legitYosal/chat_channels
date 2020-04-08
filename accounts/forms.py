@@ -4,6 +4,16 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
 
+class UserLogin(forms.ModelForm):
+    password = forms.CharField(
+        required = True,
+        widget = forms.PasswordInput,
+    )
+    class Meta:
+        model = User
+        fields = ('username', 'password',)
+
+
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)

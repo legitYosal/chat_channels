@@ -20,7 +20,8 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('chat/', include('chat.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('todo/', include('todos.urls')),
 ]

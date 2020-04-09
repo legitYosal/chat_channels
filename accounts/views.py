@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import UserLogin
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == 'POST':
@@ -15,6 +16,9 @@ def login_view(request):
         print('user is posting')
         if user:
             login(request, user)
+            # just make user online
+            user.is_online = True
+            user.save()
             return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             # raise ValidationError(('user not exists'), code='invalid')
@@ -23,6 +27,9 @@ def login_view(request):
         form = UserLogin()
         return render(request, 'registration/login.html', {'form': form})
 
+@login_required
 def logout_view(request):
+    request.user.is_online = False
+    request.user.save()
     logout(request)
     return redirect(settings.LOGIN_URL)

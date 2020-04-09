@@ -52,6 +52,9 @@ class User(AbstractBaseUser):
     #     max_length=255,
     #     unique=True,
     # )
+    is_online = models.BooleanField(
+        default = False
+    )
     username = models.CharField(
         max_length=128,
         verbose_name='user name',

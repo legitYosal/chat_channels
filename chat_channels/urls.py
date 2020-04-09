@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-
+from chat.views import index
 
 urlpatterns = [
+    path('', index, name='index'),
     path('chat/', include('chat.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
     path('', include('accounts.urls')),

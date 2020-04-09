@@ -1,7 +1,7 @@
 import json
-# from channels.generic.websocket import WebsocketConsumer
-# from asgiref.sync import async_to_sync
+from .exceptions import ClientError
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .utils import get_user_matches
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -44,4 +44,37 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # self.send(text_data=json.dumps({
         await self.send(text_data=json.dumps({
             'message': message
+        }))
+
+
+class ChatRealConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        print('log: connect request')
+        if self.scope['user'].is_anonymous:
+            await self.close()
+        else:
+            print('log: connect accepted')
+            await self.accept()
+
+    async def disconnect(self, code):
+        print('client disconnected')
+        pass
+
+    async def receive(self, text_data):
+        content = json.loads(text_data)
+        command = content.get('command', None)
+        print(content)
+        try:
+            if command == 'user_search':
+                await self.match_user(content['user_name'])
+
+        except ClientError as e:
+            await self.send(text_data=json.dumps({'error': e.code}))
+
+
+    async def match_user(self, user_name):
+        matches = await get_user_matches(user_name, self.scope['user'])
+        await self.send(text_data=json.dumps({
+            'msg_type': 'search_bar_matches',
+            'matches' : matches
         }))
